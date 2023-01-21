@@ -1,0 +1,47 @@
+body{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.hobbies>div {
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 13px 0px;
+    cursor: pointer;
+}
+
+/* .hobbies div:hover {
+    background-color: #77a0dc;
+    border-color: #77a0dc;
+    color: white;
+} */
+
+.hobbies>div p {
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+
+.stats {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    margin-right: 8px;
+    align-items: end;
+}
+
+.stats span {
+    font-size: 15px;
+}
+
+.streak {
+    color: red;
+}
+
+.done .streak {
+    color: #ff3145;
+}
+
+.hobbies>div.done {
+    background-color: #0d6efd;
+    color: white;
+}
