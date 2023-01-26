@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const mongoose = require("mongoose");
+const { toJSON } = require("./plugins");
 
 const hobbySchema = mongoose.Schema(
   {
@@ -8,15 +8,18 @@ const hobbySchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    user:{
+    user: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
-    }
+    },
+    streakCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
-    
   }
 );
 
@@ -26,6 +29,6 @@ hobbySchema.plugin(toJSON);
 /**
  * @typedef Hobby
  */
-const Hobby = mongoose.model('Hobby', hobbySchema);
+const Hobby = mongoose.model("Hobby", hobbySchema);
 
 module.exports = Hobby;

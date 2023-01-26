@@ -1,26 +1,32 @@
 const express = require("express");
-const validate = require("../../middlewares/validate");
-const authValidation = require("../../validations/auth.validation");
-const authController = require("../../controllers/auth.controller");
-const { userService } = require("../../services");
+const { hobbyService } = require("../../services");
+const auth = require("../../middlewares/auth");
+const moment = require("moment");
+const weekdays = require("../../utils/weekdays");
 
 const router = express.Router();
 
-router.get("/dashboard", async (req, res) => {
-  const { user } = req.query;
-  if (!user) {
-    res.redirect("/");
-  }
-  const hobbies = await userService.getTodayHobbies(user);
-  res.render("dashboard", { user, hobbies });
+router.get("/dashboard", auth, async (req, res) => {
+  const hobbies = await hobbyService.getTodayHobbies(req.user);
+  res.render("dashboard", {
+    user: req.user,
+    hobbies,
+    date: moment().format("DD-MM-YYYY"),
+  });
 });
 
-router.get("/create-hobby", (req, res) => {
-  const { user } = req.query;
-  if (!user) {
-    res.redirect("/");
-  }
-  res.render("createHobbie", { user });
+router.get("/create-hobby", auth, (req, res) => {
+  res.render("createHobbie", { user: req.user });
+});
+
+router.get("/calendar", auth, async (req, res) => {
+  const calendar = await hobbyService.getCalendarHobbies(req.user);
+  res.render("calendar", {
+    user: req.user,
+    calendar,
+    date: moment().format("MMMM YYYY"),
+    weekdays: weekdays()
+  });
 });
 
 module.exports = router;

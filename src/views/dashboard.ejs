@@ -4,28 +4,97 @@
     <div class="col-12 col-sm-7 col-md-5 mx-auto">
       <div class="d-flex justify-content-between">
         <h3>Hobbies</h3>
-        <a href="/app/create-hobby?user=<%= user %>"><button type="button" class="btn btn-outline-primary"> ADD</button></a>
+        <a href="/app/create-hobby?user=<%= user %>"
+          ><button type="button" class="btn btn-outline-primary">ADD</button></a
+        >
       </div>
       <div class="hobbies">
-        <div class="d-flex justify-content-between done">
-          <p>Drink Water</p>
-          <div class="d-flex">
-            <div
-              class="d-flex flex-column justify-content-center text-white me-2"
-            >
-              <span><i class="fa-solid fa-check"></i></span>
+        <% if(hobbies.length === 0){ %>
+        <p class="text-center mt-5">No hobbies!</p>
+
+        <% } %>
+         <% hobbies.forEach(function(hobby){ %>
+        <div
+          class="<%= ['pending','not_done'].includes(hobby.status) ? '' : 'done' %>"
+        >
+          <div
+            data-bs-toggle="modal"
+            data-bs-target="#hobbyStat<%= hobby._id %>"
+            class="d-flex justify-content-between"
+          >
+            <p>
+              <%= hobby.title %>
+              <span class="check"><i class="fa-solid fa-check"></i></span>
+            </p>
+            <div class="d-flex">
+              <div class="stats">
+                <span><%= hobby.completedDays %>/<%= hobby.totalDays %></span>
+                <% if (hobby.streak > 0) { %>
+
+                <span class="streak"
+                  ><%= hobby.streak %>
+                  <i class="fa-solid fa-fire-flame-curved"></i
+                ></span>
+                <%} %>
+              </div>
             </div>
-            <div class="stats">
-              <span class="streak"
-                >1 <i class="fa-solid fa-fire-flame-curved"></i
-              ></span>
-              <span>1/1</span>
+          </div>
+          <div
+            class="modal fade"
+            id="hobbyStat<%= hobby._id %>"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-black" id="exampleModalLabel">
+                    Choose
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/users/track" method="post">
+                    <input
+                      type="hidden"
+                      name="hobby"
+                      value="<%= hobby._id %>"
+                    />
+                    <input type="hidden" name="date" value="<%= date %>" />
+                    <% if (['pending','not_done'].includes(hobby.status)) { %>
+                    <div>
+                      <input type="hidden" name="status" value="done" />
+
+                      <button
+                        class="mx-auto btn btn-outline-success d-block w-50"
+                      >
+                        Mark as done
+                      </button>
+                    </div>
+                    <%} else { %>
+                    <div>
+                      <input type="hidden" name="status" value="not_done" />
+                      <button
+                        type="submit"
+                        class="mx-auto w-50 d-block btn btn-outline-danger"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                    <% } %>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <p>Go to gym</p>
-        </div>
+        <% }); %>
       </div>
     </div>
   </div>

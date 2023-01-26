@@ -1,4 +1,4 @@
-body{
+body {
     font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -18,6 +18,14 @@ body{
 .hobbies>div p {
     margin-bottom: 5px;
     padding: 10px;
+}
+
+.hobbies>div .check {
+    display: none;
+}
+
+.hobbies>div.done .check {
+    display: inline;
 }
 
 
@@ -44,4 +52,49 @@ body{
 .hobbies>div.done {
     background-color: #0d6efd;
     color: white;
+}
+
+.text-black {
+    color: black !important;
+}
+
+.calendar-icon {
+    color: white;
+    padding: 3px 15px;
+    font-size: 22px;
+}
+
+.col-1-7 {
+    flex: 0 0 auto;
+    width: 14.28% !important;
+}
+
+.week-days>div {
+    font-size: 12px;
+    text-align: center;
+    background-color: #eee;
+}
+
+.hobby-title {
+    font-weight: 600;
+}
+
+.hobby-bar {
+    background-color: #E5E5E5;
+}
+
+.box {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.box.done {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
 }

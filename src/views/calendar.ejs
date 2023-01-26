@@ -1,0 +1,99 @@
+<%+ extend('layout') %> <%+ section('content') %>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-12 col-sm-5 mx-auto">
+      <div class="d-flex justify-content-center">
+        <h3><%= date %></h3>
+      </div>
+      <div class="row week-days">
+      <% weekdays.forEach(function(item){ %>
+
+        <div class="col-1-7"><%= item %></div>
+        <% }); %>
+      </div>
+      <% calendar.forEach(function(item){ %>
+
+      <div>
+        <div class="row hobby-bar">
+          <div class="d-flex justify-content-between px-3 py-2">
+            <p class="mb-0 hobby-title"><%= item.hobby.title %></p>
+            <div class="d-flex">
+              <% if (item.hobby.streak > 0) { %>
+
+              <span class="streak me-3">
+                <%= item.hobby.streak %>
+                <i class="fa-solid fa-fire-flame-curved"></i
+              ></span>
+              <%} %>
+
+              <p class="mb-0">
+                <%= item.hobby.completedDays %>/<%= item.hobby.totalDays %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row week-day">
+          <% item.calendar.forEach(function(dayResult){ %>
+          <div class="col-1-7 px-2 my-1">
+            <div
+              onclick="boxClicked(<%= JSON.stringify(dayResult) %>, '<%= item.hobby._id %>')"
+              class="box <%= ['pending', 'not_done'].includes(dayResult.status) ? '' : 'done' %>"
+            >
+              <p class="mb-0"><%= dayResult.date %></p>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+    <div
+      class="modal fade"
+      id="hobbyStat"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="exampleModalLabel">
+              Choose
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/users/track" method="post">
+              <input id="formDate" type="hidden" name="date" />
+              <input id="formHobby" type="hidden" name="hobby" />
+              <input id="formStatus" type="hidden" name="status" />
+              <div>
+                <button
+                  id="doneButton"
+                  class="mx-auto btn btn-outline-success w-100"
+                >
+                  Mark as done
+                </button>
+              </div>
+              <div>
+                <button
+                  id="resetButton"
+                  type="submit"
+                  class="mx-auto w-100 btn btn-outline-danger"
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%+ endSection %>

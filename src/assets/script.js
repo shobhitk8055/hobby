@@ -1,18 +1,14 @@
-// function checkQuery(search){
-//     const params = new URLSearchParams(search);
-//     const name = params.get("name");
-//     if(!name){
-//         location.href= '/';
-//     }
-//     return name;
-// }
-
-// const loc = window.location;
-// if(loc.pathname === "/app/create-hobby"){
-//     const name = checkQuery(loc.search);
-
-// }
-// if(loc.pathname === "/app/dashboard"){
-//     const name = checkQuery(loc.search);
-//     $('#create-btn').attr('href', `/app/create-hobby?name=${name}`)
-// }
+function boxClicked(dayResult, hobby){
+    if(['pending', 'not_done'].includes(dayResult.status)){
+        $('#doneButton').show();
+        $('#resetButton').hide();
+        $('#formStatus').val('done');
+    }else{
+        $('#doneButton').hide();
+        $('#resetButton').show();
+        $('#formStatus').val('not_done');
+    }
+    $('#formDate').val(dayResult.dateString);
+    $('#formHobby').val(hobby);
+    $('#hobbyStat').modal('show');
+}

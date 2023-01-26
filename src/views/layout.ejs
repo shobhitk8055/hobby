@@ -46,20 +46,43 @@
       <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Hobby Tracker</a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarColor02"
-              aria-controls="navbarColor02"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="/app/dashboard?user=<%= locals.user ?? '' %>">Hobby Tracker</a>
+            <div>
+              <a
+                href="/app/calendar?user=<%= locals.user ?? '' %>"
+                class="d-inline d-sm-none calendar-icon"
+                ><i class="fa-regular fa-calendar"></i
+              ></a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarColor02"
+                aria-controls="navbarColor02"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a
+                    class="nav-link d-none d-sm-inline-block"
+                    aria-current="page"
+                    href="/app/calendar?user=<%= locals.user ?? '' %>"
+                    >Calendar</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/app/dashboard?user=<%= locals.user ?? '' %>">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/">Logout</a>
+                </li>
+              </ul>
             </div>
           </div>
         </nav>
